@@ -1,54 +1,69 @@
 import pandas as pd
+import numpy as np
 from datetime import datetime
 import os
 
 # --- CONFIG ---
-PATH_ACLED = "DisperseArt_InformationVisualization/raw_data/ACLED_Data_2025-11-19.csv"
-OUT_PATH   = "DisperseArt_InformationVisualization/processed_data/acled_clean.csv"
-START_DATE = datetime(2022, 2, 24)
+# Assicurati che questi percorsi siano corretti per il tuo ambiente (Colab o Locale)
+PATH_ACLED = "DisperseArt_InformationVisualization/raw_data/ACLED Data_2025-12-21.csv"
+OUT_DIR    = "DisperseArt_InformationVisualization/processed_data"
+OUT_PATH   = os.path.join(OUT_DIR, "acled_clean.csv")
 
-EVENT_TYPES_INCLUDE = [
-    "Explosions/Remote violence",
-    "Battles",
-    "Violence against civilians",
-    "Strategic developments",
-]
+def clean_acled_data(path):
+    try:
+        # Caricamento
+        df = pd.read_csv(path, sep=";", encoding="utf-8", on_bad_lines="skip", engine="python")
+        df.columns = df.columns.str.strip()
 
-# --- LOAD ---
-df_acled = pd.read_csv(
-    PATH_ACLED,
-    sep=";",
-    encoding="utf-8",
-    on_bad_lines="skip",
-    engine="python"
-)
+        # Conversione tipi
+        df['event_date'] = pd.to_datetime(df['event_date'], errors='coerce')
+        df['latitude'] = pd.to_numeric(df['latitude'], errors='coerce')
+        df['longitude'] = pd.to_numeric(df['longitude'], errors='coerce')
 
-# FIX minimo: nomi colonne
-df_acled.columns = df_acled.columns.str.strip()
+        # Filtro temporale (dal 2014)
+        df = df[df['event_date'] >= datetime(2014, 1, 1)]
 
-# Tipi necessari
-df_acled["event_date"] = pd.to_datetime(df_acled["event_date"], errors="coerce")
-df_acled["latitude"]   = pd.to_numeric(df_acled["latitude"], errors="coerce")
-df_acled["longitude"]  = pd.to_numeric(df_acled["longitude"], errors="coerce")
+        # Filtro tipi di evento (Includiamo Violence against civilians per il Looting)
+        include_events = [
+            "Explosions/Remote violence",
+            "Battles",
+            "Violence against civilians",
+            "Strategic developments"
+        ]
+        df = df[df['event_type'].isin(include_events)]
 
-# Filtri minimi
-df_acled = df_acled[df_acled["event_date"] >= START_DATE]
-df_acled = df_acled[df_acled["event_type"].isin(EVENT_TYPES_INCLUDE)]
-df_acled = df_acled.dropna(subset=["event_date", "latitude", "longitude"]).copy()
+        # Pulizia coordinate mancanti
+        df = df.dropna(subset=['event_date', 'latitude', 'longitude']).copy()
 
-# Rinomina (per uso futuro)
-df_acled = df_acled.rename(columns={
-    "event_date": "ACLED_Date",
-    "latitude": "ACLED_Lat",
-    "longitude": "ACLED_Lon",
-    "event_type": "ACLED_EventType",
-})
+        # Rinomina colonne
+        df = df.rename(columns={
+            'event_date': 'ACLED_Date',
+            'latitude': 'ACLED_Lat',
+            'longitude': 'ACLED_Lon',
+            'event_type': 'ACLED_EventType',
+            'sub_event_type': 'ACLED_SubEvent',
+            'notes': 'ACLED_Notes'
+        })
 
-# --- OUTPUT ---
-os.makedirs("processed_data", exist_ok=True)
-df_acled.to_csv(OUT_PATH, index=False)
+        return df
+    except Exception as e:
+        print(f"Error processing ACLED data: {e}")
+        return pd.DataFrame()
 
-print("ACLED cleaned shape:", df_acled.shape)
-print("Saved to:", OUT_PATH)
+# 1. Esecuzione pulizia
+df_acled_clean = clean_acled_data(PATH_ACLED)
 
-df_acled.head(3)
+# 2. SALVATAGGIO EFFETTIVO
+if not df_acled_clean.empty:
+    # Crea la cartella se non esiste
+    if not os.path.exists(OUT_DIR):
+        os.makedirs(OUT_DIR)
+    
+    # Salva il file
+    df_acled_clean.to_csv(OUT_PATH, index=False, sep=";")
+    print(f"✓ ACLED Dataset Cleaned: {df_acled_clean.shape[0]} events processed.")
+    print(f"✓ File salvato con successo in: {OUT_PATH}")
+else:
+    print("Errore: Il DataFrame è vuoto, niente da salvare.")
+
+df_acled_clean.head(3)
