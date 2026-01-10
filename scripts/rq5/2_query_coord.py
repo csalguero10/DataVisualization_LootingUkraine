@@ -78,8 +78,8 @@ def process_unesco_csv(input_path, output_path):
     print(f"Successo! File aggiornato salvato in: {output_path}")
 
 # --- CONFIGURAZIONE ---
-input_csv = "DisperseArt_InformationVisualization/raw_data/unesco_ukraine_lists_qid.csv"  # Modifica questo path
-output_csv = "DisperseArt_InformationVisualization/csv/unesco_aggiornato.csv"
+input_csv = "DisperseArt_InformationVisualization/raw_data/unesco_ukraine_lists_qid.csv"
+output_csv = "DisperseArt_InformationVisualization/processed_data/2_ukraine_list_qid_coord.csv"
 
 if __name__ == "__main__":
     process_unesco_csv(input_csv, output_csv)
