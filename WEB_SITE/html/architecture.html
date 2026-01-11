@@ -396,7 +396,7 @@
 </section>
 <!-- end datasets section -->
 
-        <!-- project / research questions section -->
+ <!-- project / research questions section -->
 <section id="projects" class="wow fadeIn no-padding">
     <div class="container-fluid">
         <div class="row">
@@ -406,17 +406,18 @@
                 <div class="col-lg-6 col-md-8 col-sm-10 col-xs-10 text-right pull-right sm-margin-nineteen sm-no-margin-lr sm-no-margin-top xs-margin-nineteen xs-no-margin-lr xs-no-margin-top">
                     <!-- navigation come TAB, non più filtro portfolio -->
                     <ul class="nav nav-tabs no-border portfolio-filter-tab-style-6 alt-font text-large text-uppercase letter-spacing-1 projects-tabs">
+                        <!-- MODIFICA: Aggiunta classe scroll-tab e data-target -->
                         <li class="nav active sm-no-padding xs-padding-three">
-                            <a href="#rq-architecture" data-toggle="tab" class="xs-display-inline">Architecture</a>
+                            <a href="#rq-architecture" data-toggle="tab" data-target="#rq-architecture" class="xs-display-inline scroll-tab">Architecture</a>
                         </li>
                         <li class="nav sm-no-padding xs-padding-three">
-                            <a href="#rq-civil" data-toggle="tab" class="xs-display-inline">Civil & Structural</a>
+                            <a href="#rq-civil" data-toggle="tab" data-target="#rq-civil" class="xs-display-inline scroll-tab">Civil & Structural</a>
                         </li>
                         <li class="nav sm-no-padding xs-padding-three">
-                            <a href="#rq-landscape" data-toggle="tab" class="xs-display-inline">Landscape Design</a>
+                            <a href="#rq-landscape" data-toggle="tab" data-target="#rq-landscape" class="xs-display-inline scroll-tab">Landscape Design</a>
                         </li>
                         <li class="nav sm-no-padding xs-padding-three">
-                            <a href="#rq-urban" data-toggle="tab" class="xs-display-inline">The Institutions</a>
+                            <a href="#rq-urban" data-toggle="tab" data-target="#rq-urban" class="xs-display-inline scroll-tab">The Institutions</a>
                         </li>
                     </ul>
                     <!-- end tabs navigation -->
@@ -553,276 +554,237 @@
             </div>
 
             <!-- TAB: THE INSTITUTIONS (UNESCO → Proximity → Target view → Red List vs Stolen) -->
-<div role="tabpanel" class="tab-pane fade" id="rq-urban">
+            <div role="tabpanel" class="tab-pane fade" id="rq-urban">
+                <!-- === BLOCK 1: UNESCO protection gap === -->
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            How effective is international protection when cultural heritage is exposed to modern warfare?
+                            In other words: does recognition translate into safety, or does it remain administrative?
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            This visualization compares UNESCO-protected heritage sites with documented damage events to reveal what gets recorded in official registers, and what remains invisible.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            The main issue is a visibility mismatch: UNESCO lists are intentionally selective and reflect long-term
+                            heritage policies, while destruction reports refer to a much broader set of cultural entities exposed to violence.
+                            The result is a "protection gap", where a large share of documented damage concerns heritage that sits outside
+                            international recognition frameworks.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            The waffle chart below offers a scale-comparable view of this discrepancy by juxtaposing UNESCO-listed sites
+                            (World Heritage and Tentative List) with cultural entities reported as damaged by monitoring initiatives such as UNESCO itself.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            Each square represents one entity.
+                            <span class="deep-yellow-text">Yellow</span> squares correspond to UNESCO-listed sites,
+                            while <span class="deep-blue-text">blue</span> squares represent damaged sites, many of which fall outside UNESCO's scope.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            Filters allow users to isolate specific types of damaged sites (religious buildings, museums, libraries, or others),
+                            while UNESCO sites remain visible as a constant reference layer. This makes the imbalance immediately legible:
+                            international recognition covers only a fraction of what is being hit.
+                        </p>
+                    </div>
+                </div>
 
-  <!-- === BLOCK 1: UNESCO protection gap === -->
-  <div class="row">
-    <div class="col-md-6 col-sm-6 projects-text-col">
-      <p class="text-medium">
-        How effective is international protection when cultural heritage is exposed to modern warfare?
-        In other words: does recognition translate into safety, or does it remain administrative?
-      </p>
+                <!-- VISUALIZATION: waffle -->
+                <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-12">
+                        <iframe
+                            src="viz/waffle.html"
+                            style="width:100%; max-width:900px; height:750px; border:0; overflow:hidden; display:block; margin:0 auto;"
+                            title="The Protection Gap – UNESCO vs Damaged Cultural Sites"
+                            loading="lazy" scrolling="no">
+                        </iframe>
+                        <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
+                            Hover on each square to explore individual sites, protection status and type of heritage.
+                            Use the category filters to spotlight specific groups of damaged sites.
+                        </p>
+                    </div>
+                </div>
 
-      <p class="text-medium margin-two-top">
-        This visualization compares UNESCO-protected heritage sites with documented damage events to reveal what gets recorded in official registers, and what remains invisible.
-      </p>
+                <!-- === BRIDGE SECTION: proximity impact on UNESCO sites === -->
+                <div class="row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            However, even when a site is formally recognised, protection does not imply distance from harm.
+                            Damage can occur within a few hundred meters of protected cores, where shockwaves, debris, secondary fires,
+                            and structural stress may affect the broader historic fabric.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            To quantify this exposure, we computed proximity between protected and damaged locations.
+                            For each UNESCO site with valid coordinates, we identified the <strong>nearest</strong> documented damage report,
+                            then grouped UNESCO sites by distance bands.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            Methodologically, this is not a claim of causality (damage reports can reflect different kinds of events and
+                            documentation practices), but a way to transform "risk" into a measurable spatial relation expressed in meters.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            The strip visualization below shows how many UNESCO sites have at least one recorded damage event within
+                            <strong>250 m</strong>, <strong>500 m</strong>, <strong>1 km</strong>, and beyond.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            This shifts the argument from lists and categories to spatial constraints: even "protected" sites can be exposed
+                            at short range, making the protection gap not only institutional, but also physical.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            In the next step, we zoom into one of the most exposed cases and visualize the local pattern of nearby damage
+                            around a single UNESCO site.
+                        </p>
+                    </div>
+                </div>
 
-      <p class="text-medium margin-two-top">
-        The main issue is a visibility mismatch: UNESCO lists are intentionally selective and reflect long-term
-        heritage policies, while destruction reports refer to a much broader set of cultural entities exposed to violence.
-        The result is a “protection gap”, where a large share of documented damage concerns heritage that sits outside
-        international recognition frameworks.
-      </p>
-    </div>
+                <!-- VISUALIZATION: proximity strip -->
+                <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-12">
+                        <iframe
+                            src="viz/proximity_strip.html"
+                            style="width:100%; max-width:900px; height:470px; border:0; overflow:hidden; display:block; margin:0 auto;"
+                            title="Damage proximity bands around UNESCO sites"
+                            loading="lazy" scrolling="no">
+                        </iframe>
+                        <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
+                            Each UNESCO site is counted once, based on the distance to its nearest reported damage location.
+                            Distances are computed using geodesic distance between coordinates.
+                        </p>
+                    </div>
+                </div>
 
-    <div class="col-md-6 col-sm-6 projects-text-col">
-      <p class="text-medium">
-  The waffle chart below offers a scale-comparable view of this discrepancy by juxtaposing UNESCO-listed sites
-  (World Heritage and Tentative List) with cultural entities reported as damaged by monitoring initiatives such as UNESCO itself.
-</p>
+                <!-- === BLOCK 2: Target / proximity view === -->
+                <div class="row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            Aggregated proximity bands provide a comparative overview, but they can still feel abstract.
+                            To make exposure tangible, we move from distribution to a single-site focus and map the spatial density
+                            of nearby damage events.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            What we did was computing geodesic distances between the UNESCO site's coordinates
+                            and each damage report, selecting events within a <strong>1 km</strong> radius as a "zone of critical exposure".
+                            This threshold is used as an analytic device: within this range, damage can affect not only individual buildings
+                            but also the surrounding historical landscape that gives the site integrity.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            The case study focuses on the <strong>Historic Centre of Tchernihiv</strong>, which emerges as one of the closest-hit
+                            UNESCO cases in the dataset. This shift in scale helps connect institutional protection to the granular geography
+                            of conflict.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            The plot below adopts a target-style layout: the UNESCO site is placed at the centre, while each dot represents a nearby
+                            damage report positioned by distance (meters) and arranged around the circle for readability.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            Concentric rings mark reference distances (250 m, 500 m, 1 km). Colour encodes proximity: warmer tones indicate events
+                            closer to the protected core. The purpose is not to reconstruct trajectories of attacks, but to highlight how quickly
+                            the notion of safety collapses into a matter of a few hundred meters.
+                        </p>
+                    </div>
+                </div>
 
+                <!-- VISUALIZATION: target view -->
+                <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-12">
+                        <iframe
+                            src="viz/target_tchernihiv.html"
+                            style="width:100%; max-width:900px; height:850px; border:0; overflow:hidden; display:block; margin:0 auto;"
+                            title="Historic Centre of Tchernihiv – target view of nearby attacks"
+                            loading="lazy" scrolling="no">
+                        </iframe>
+                        <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
+                            Hover the UNESCO symbol for site details; hover dots for the nearest damage reports and their distance from the centre.
+                            Rings mark 250 m, 500 m, and 1 km.
+                        </p>
+                    </div>
+                </div>
 
-      <p class="text-medium margin-two-top">
-        Each square represents one entity.
-        <span class="deep-yellow-text">Yellow</span> squares correspond to UNESCO-listed sites,
-        while <span class="deep-blue-text">blue</span> squares represent damaged sites, many of which fall outside UNESCO’s scope.
-      </p>
+                <!-- === BLOCK 3: Markets and theft (Red List vs Stolen) === -->
+                <div class="row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            Cultural harm is not limited to the destruction of built heritage. The conflict has also intensified a parallel process:
+                            the looting of movable heritage objects and their potential circulation through illicit markets.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            To interpret theft patterns, we align two different institutional lenses: <strong>ICOM's Red List</strong>, which defines
+                            typological categories considered especially vulnerable to trafficking during crises, and the dataset of <strong>reported stolen objects</strong>,
+                            which records individual artefacts documented as missing or expropriated.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            The central methodological step is category reconciliation. Because the two sources were not designed to match one another,
+                            object descriptions in the stolen dataset are mapped onto the Red List's typological categories via rule-based normalization
+                            (keywords and controlled mappings), producing a shared categorical space for comparison.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            The chart below compares the <strong>relative shares</strong> of object categories across two different perspectives:
+                            the ICOM Red List, which expresses an institutional risk model through category emphasis, and the dataset of
+                            reported stolen objects, which reflects the empirical composition of documented theft cases.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            Divergences between the two should be interpreted with caution. When reported theft exceeds Red List emphasis,
+                            looting may concentrate on categories that are underrepresented in institutional expectations, or reporting may be
+                            uneven across object types. Conversely, where the Red List outweighs reported theft, the gap may point to effective
+                            prevention measures, limited documentation capacity, or underreporting of specific categories.
+                        </p>
+                    </div>
+                </div>
 
-      <p class="text-medium margin-two-top">
-        Filters allow users to isolate specific types of damaged sites (religious buildings, museums, libraries, or others),
-        while UNESCO sites remain visible as a constant reference layer. This makes the imbalance immediately legible:
-        international recognition covers only a fraction of what is being hit.
-      </p>
-    </div>
-  </div>
+                <!-- VISUALIZATION: redlist vs stolen -->
+                <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-12">
+                        <iframe
+                            src="viz/redlist_vs_stolen.html"
+                            style="width:100%; max-width:900px; height:650px; border:0; overflow:hidden; display:block; margin:0 auto;"
+                            title="Red List vs stolen cultural objects – category comparison"
+                            loading="lazy" scrolling="no">
+                        </iframe>
+                        <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
+                            Each pair of bars contrasts the category emphasis in the ICOM Red List with the category composition of reported stolen objects.
+                        </p>
+                    </div>
+                </div>
 
-  <!-- VISUALIZATION: waffle -->
-  <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
-    <div class="col-md-12">
-      <iframe
-        src="viz/waffle.html"
-        style="width:100%; max-width:900px; height:750px; border:0; overflow:hidden; display:block; margin:0 auto;"
-        title="The Protection Gap – UNESCO vs Damaged Cultural Sites"
-        loading="lazy" scrolling="no">
-      </iframe>
-
-      <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
-        Hover on each square to explore individual sites, protection status and type of heritage.
-        Use the category filters to spotlight specific groups of damaged sites.
-      </p>
-    </div>
-  </div>
-
-  <!-- === BRIDGE SECTION: proximity impact on UNESCO sites === -->
-  <div class="row margin-twenty no-margin-lr no-margin-bottom">
-    <div class="col-md-6 col-sm-6 projects-text-col">
-      <p class="text-medium">
-        However, even when a site is formally recognised, protection does not imply distance from harm.
-        Damage can occur within a few hundred meters of protected cores, where shockwaves, debris, secondary fires,
-        and structural stress may affect the broader historic fabric.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        To quantify this exposure, we computed proximity between protected and damaged locations.
-        For each UNESCO site with valid coordinates, we identified the <strong>nearest</strong> documented damage report,
-        then grouped UNESCO sites by distance bands.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        Methodologically, this is not a claim of causality (damage reports can reflect different kinds of events and
-        documentation practices), but a way to transform “risk” into a measurable spatial relation expressed in meters.
-      </p>
-    </div>
-
-    <div class="col-md-6 col-sm-6 projects-text-col">
-      <p class="text-medium">
-        The strip visualization below shows how many UNESCO sites have at least one recorded damage event within
-        <strong>250 m</strong>, <strong>500 m</strong>, <strong>1 km</strong>, and beyond.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        This shifts the argument from lists and categories to spatial constraints: even “protected” sites can be exposed
-        at short range, making the protection gap not only institutional, but also physical.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        In the next step, we zoom into one of the most exposed cases and visualize the local pattern of nearby damage
-        around a single UNESCO site.
-      </p>
-    </div>
-  </div>
-
-  <!-- VISUALIZATION: proximity strip -->
-  <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
-    <div class="col-md-12">
-      <iframe
-        src="viz/proximity_strip.html"
-        style="width:100%; max-width:900px; height:470px; border:0; overflow:hidden; display:block; margin:0 auto;"
-        title="Damage proximity bands around UNESCO sites"
-        loading="lazy" scrolling="no">
-      </iframe>
-
-      <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
-        Each UNESCO site is counted once, based on the distance to its nearest reported damage location.
-        Distances are computed using geodesic distance between coordinates.
-      </p>
-    </div>
-  </div>
-
-  <!-- === BLOCK 2: Target / proximity view === -->
-  <div class="row margin-twenty no-margin-lr no-margin-bottom">
-    <div class="col-md-6 col-sm-6 projects-text-col">
-      <p class="text-medium">
-        Aggregated proximity bands provide a comparative overview, but they can still feel abstract.
-        To make exposure tangible, we move from distribution to a single-site focus and map the spatial density
-        of nearby damage events.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        What we did was computing geodesic distances between the UNESCO site’s coordinates
-        and each damage report, selecting events within a <strong>1 km</strong> radius as a “zone of critical exposure”.
-        This threshold is used as an analytic device: within this range, damage can affect not only individual buildings
-        but also the surrounding historical landscape that gives the site integrity.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        The case study focuses on the <strong>Historic Centre of Tchernihiv</strong>, which emerges as one of the closest-hit
-        UNESCO cases in the dataset. This shift in scale helps connect institutional protection to the granular geography
-        of conflict.
-      </p>
-    </div>
-
-    <div class="col-md-6 col-sm-6 projects-text-col">
-      <p class="text-medium">
-        The plot below adopts a target-style layout: the UNESCO site is placed at the centre, while each dot represents a nearby
-        damage report positioned by distance (meters) and arranged around the circle for readability.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        Concentric rings mark reference distances (250 m, 500 m, 1 km). Colour encodes proximity: warmer tones indicate events
-        closer to the protected core. The purpose is not to reconstruct trajectories of attacks, but to highlight how quickly
-        the notion of safety collapses into a matter of a few hundred meters.
-      </p>
-    </div>
-  </div>
-
-  <!-- VISUALIZATION: target view -->
-  <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
-    <div class="col-md-12">
-      <iframe
-        src="viz/target_tchernihiv.html"
-        style="width:100%; max-width:900px; height:850px; border:0; overflow:hidden; display:block; margin:0 auto;"
-        title="Historic Centre of Tchernihiv – target view of nearby attacks"
-        loading="lazy" scrolling="no">
-      </iframe>
-
-      <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
-        Hover the UNESCO symbol for site details; hover dots for the nearest damage reports and their distance from the centre.
-        Rings mark 250 m, 500 m, and 1 km.
-      </p>
-    </div>
-  </div>
-
-  <!-- === BLOCK 3: Markets and theft (Red List vs Stolen) === -->
-  <div class="row margin-twenty no-margin-lr no-margin-bottom">
-    <div class="col-md-6 col-sm-6 projects-text-col">
-      <p class="text-medium">
-        Cultural harm is not limited to the destruction of built heritage. The conflict has also intensified a parallel process:
-        the looting of movable heritage objects and their potential circulation through illicit markets.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        To interpret theft patterns, we align two different institutional lenses: <strong>ICOM’s Red List</strong>, which defines
-        typological categories considered especially vulnerable to trafficking during crises, and the dataset of <strong>reported stolen objects</strong>,
-        which records individual artefacts documented as missing or expropriated.
-      </p>
-
-      <p class="text-medium margin-two-top">
-        The central methodological step is category reconciliation. Because the two sources were not designed to match one another,
-        object descriptions in the stolen dataset are mapped onto the Red List’s typological categories via rule-based normalization
-        (keywords and controlled mappings), producing a shared categorical space for comparison.
-      </p>
-    </div>
-
-    <div class="col-md-6 col-sm-6 projects-text-col">
-  <p class="text-medium">
-    The chart below compares the <strong>relative shares</strong> of object categories across two different perspectives:
-    the ICOM Red List, which expresses an institutional risk model through category emphasis, and the dataset of
-    reported stolen objects, which reflects the empirical composition of documented theft cases.
-  </p>
-
-  <p class="text-medium margin-two-top">
-    Divergences between the two should be interpreted with caution. When reported theft exceeds Red List emphasis,
-    looting may concentrate on categories that are underrepresented in institutional expectations, or reporting may be
-    uneven across object types. Conversely, where the Red List outweighs reported theft, the gap may point to effective
-    prevention measures, limited documentation capacity, or underreporting of specific categories.
-  </p>
-</div>
-
-  </div>
-
-  <!-- VISUALIZATION: redlist vs stolen -->
-  <div class="row projects-viz-row margin-twenty no-margin-lr no-margin-bottom">
-    <div class="col-md-12">
-      <iframe
-        src="viz/redlist_vs_stolen.html"
-        style="width:100%; max-width:900px; height:650px; border:0; overflow:hidden; display:block; margin:0 auto;"
-        title="Red List vs stolen cultural objects – category comparison"
-        loading="lazy" scrolling="no">
-      </iframe>
-
-      <p class="text-small light-gray-text margin-nine no-margin-lr no-margin-bottom">
-        Each pair of bars contrasts the category emphasis in the ICOM Red List with the category composition of reported stolen objects.
-      </p>
-
-      
-    </div>
-
-  </div>
-
-
-  <div class="row margin-twenty no-margin-lr no-margin-bottom">
-<div class="col-md-6 col-sm-6 projects-text-col">
-  <p class="text-medium">
-    The comparison highlights a clear mismatch between <strong>institutional expectations</strong> and
-    <strong>reported theft</strong>. The ICOM Red List prioritises specific categories based on expert
-    assessments of vulnerability, while the stolen objects dataset reflects what has been concretely
-    removed under wartime conditions.
-  </p>
-
-  <p class="text-medium margin-two-top">
-    The two distributions do not overlap neatly. Categories that receive limited emphasis in the Red List
-    account for a substantial share of reported theft, while some high-risk categories appear less frequently
-    in documented cases. This suggests that actual looting practices respond to opportunity, availability,
-    and ease of removal rather than to institutional definitions of risk alone.
-  </p>
-</div>
-
-<div class="col-md-6 col-sm-6 projects-text-col">
-  <p class="text-medium">
-    At the same time, a large portion of stolen objects falls into mixed or residual categories, indicating
-    that many artefacts circulate outside clearly bounded typologies. This complicates efforts to anticipate
-    cultural loss through predefined taxonomies.
-  </p>
-
-  <p class="text-medium margin-two-top">
-    When considered alongside the limited coverage of international protection and the spatial proximity
-    of damage to recognised heritage sites, this analysis reinforces a central finding of the project:
-    cultural loss in Ukraine is only partially captured by existing institutional frameworks.
-    What is targeted, damaged, or appropriated often exceeds the categories through which risk and protection
-    are formally articulated.
-  </p>
-</div>
-
-
-</div>
-
-</div>
-
-<!-- end tab-pane: THE INSTITUTIONS -->
-
-
-
+                <div class="row margin-twenty no-margin-lr no-margin-bottom">
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            The comparison highlights a clear mismatch between <strong>institutional expectations</strong> and
+                            <strong>reported theft</strong>. The ICOM Red List prioritises specific categories based on expert
+                            assessments of vulnerability, while the stolen objects dataset reflects what has been concretely
+                            removed under wartime conditions.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            The two distributions do not overlap neatly. Categories that receive limited emphasis in the Red List
+                            account for a substantial share of reported theft, while some high-risk categories appear less frequently
+                            in documented cases. This suggests that actual looting practices respond to opportunity, availability,
+                            and ease of removal rather than to institutional definitions of risk alone.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-sm-6 projects-text-col">
+                        <p class="text-medium">
+                            At the same time, a large portion of stolen objects falls into mixed or residual categories, indicating
+                            that many artefacts circulate outside clearly bounded typologies. This complicates efforts to anticipate
+                            cultural loss through predefined taxonomies.
+                        </p>
+                        <p class="text-medium margin-two-top">
+                            When considered alongside the limited coverage of international protection and the spatial proximity
+                            of damage to recognised heritage sites, this analysis reinforces a central finding of the project:
+                            cultural loss in Ukraine is only partially captured by existing institutional frameworks.
+                            What is targeted, damaged, or appropriated often exceeds the categories through which risk and protection
+                            are formally articulated.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- end tab-pane: THE INSTITUTIONS -->
         </div><!-- /.tab-content -->
     </div><!-- /.container projects-content -->
 </section>
@@ -1228,5 +1190,25 @@
         <script type="text/javascript" src="js/jquery.fitvids.js"></script>
         <!-- setting -->
         <script type="text/javascript" src="js/main.js"></script>
+
+
+<script>
+$(document).ready(function() {
+    // Gestisce lo scroll quando si clicca su un tab
+    $('.scroll-tab').on('click', function(e) {
+        // Aspetta un momento per permettere a Bootstrap di attivare il tab
+        setTimeout(function() {
+            // Calcola la posizione della sezione projects-content
+            var projectsContent = $('.projects-content');
+            if (projectsContent.length) {
+                // Scorri fino alla sezione dei progetti con un margine
+                $('html, body').animate({
+                    scrollTop: projectsContent.offset().top - 100
+                }, 600);
+            }
+        }, 50);
+    });
+});
+</script>
     </body>
 </html>
