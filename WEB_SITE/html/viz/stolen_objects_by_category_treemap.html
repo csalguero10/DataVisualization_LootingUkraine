@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stolen Objects by Category - Treemap</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #FFF8F0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            color: #5C3317;
+            font-size: clamp(20px, 4vw, 32px);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        #treemap {
+            width: 100%;
+            height: 700px;
+            position: relative;
+        }
+
+        .node {
+            position: absolute;
+            border: 2px solid #fff;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover {
+            border-color: #5C3317;
+            border-width: 3px;
+            z-index: 10;
+        }
+
+        .node-label {
+            padding: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 1.3;
+            pointer-events: none;
+        }
+
+        .category-name {
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .category-count {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .category-percentage {
+            font-size: 16px;
+        }
+
+        .legend {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .legend-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #5C3317;
+        }
+
+        .legend-scale {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border: 1px solid #ddd;
+        }
+
+        #tooltip {
+            position: fixed;
+            background: rgba(92, 51, 23, 0.95);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        #tooltip.visible {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            #treemap {
+                height: 500px;
+            }
+
+            .node-label {
+                font-size: 11px;
+                padding: 4px;
+            }
+
+            .category-count {
+                font-size: 14px;
+            }
+
+            .category-percentage {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #treemap {
+                height: 400px;
+            }
+
+            .node-label {
+                font-size: 9px;
+                padding: 3px;
+            }
+
+            .category-count {
+                font-size: 12px;
+            }
+
+            .category-percentage {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stolen Objects by Category (Treemap)</h1>
+        
+        <div id="treemap"></div>
+        <div id="tooltip"></div>
+        
+        <div class="legend">
+            <div class="legend-title">Count</div>
+            <div class="legend-scale">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #8B4513;"></div>
+                    <span>800+</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #D2691E;"></div>
+                    <span>400-800</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #F4A460;"></div>
+                    <span>200-400</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FFD700;"></div>
+                    <span>100-200</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #FFEB99;"></div>
+                    <span>&lt;100</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const data = {
+            name: "Stolen Objects",
+            children: [
+                {name: "Painting", count: 874, percentage: 38.2},
+                {name: "Ceramic products", count: 450, percentage: 19.7},
+                {name: "Graphics", count: 372, percentage: 16.3},
+                {name: "Metal products", count: 150, percentage: 6.6},
+                {name: "Jewelry products", count: 99, percentage: 4.3},
+                {name: "Numismatic", count: 97, percentage: 4.2},
+                {name: "Sculpture", count: 88, percentage: 3.8},
+                {name: "Stone products", count: 70, percentage: 3.1},
+                {name: "Icon", count: 32, percentage: 1.4},
+                {name: "Glass objects", count: 23, percentage: 1.0},
+                {name: "Weapon", count: 16, percentage: 0.7},
+                {name: "Architectural details", count: 6, percentage: 0.3},
+                {name: "Bone products", count: 4, percentage: 0.2},
+                {name: "Books", count: 3, percentage: 0.1},
+                {name: "Furniture", count: 2, percentage: 0.1}
+            ]
+        };
+
+        const tooltip = document.getElementById('tooltip');
+
+        // Color scale
+        function getColor(count) {
+            if (count >= 800) return '#8B4513'; // Dark brown
+            if (count >= 400) return '#D2691E'; // Chocolate
+            if (count >= 200) return '#F4A460'; // Sandy brown
+            if (count >= 100) return '#FFD700'; // Gold
+            return '#FFEB99'; // Light yellow
+        }
+
+        // Get text color based on background
+        function getTextColor(bgColor) {
+            const color = d3.color(bgColor);
+            const luminance = (0.299 * color.r + 0.587 * color.g + 0.114 * color.b) / 255;
+            return luminance > 0.6 ? '#333' : '#fff';
+        }
+
+        // Create treemap
+        function createTreemap() {
+            const container = document.getElementById('treemap');
+            container.innerHTML = ''; // Clear previous content
+            
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            // Create hierarchy
+            const root = d3.hierarchy(data)
+                .sum(d => d.count)
+                .sort((a, b) => b.value - a.value);
+
+            // Create treemap layout
+            const treemap = d3.treemap()
+                .size([width, height])
+                .paddingInner(2)
+                .paddingOuter(3)
+                .round(true);
+
+            treemap(root);
+
+            // Create nodes
+            root.leaves().forEach(node => {
+                const div = document.createElement('div');
+                div.className = 'node';
+                
+                const bgColor = getColor(node.data.count);
+                const textColor = getTextColor(bgColor);
+                
+                div.style.left = node.x0 + 'px';
+                div.style.top = node.y0 + 'px';
+                div.style.width = (node.x1 - node.x0) + 'px';
+                div.style.height = (node.y1 - node.y0) + 'px';
+                div.style.backgroundColor = bgColor;
+
+                // Calculate if there's enough space for text
+                const nodeWidth = node.x1 - node.x0;
+                const nodeHeight = node.y1 - node.y0;
+                const minSize = 40;
+
+                if (nodeWidth > minSize && nodeHeight > minSize) {
+                    const label = document.createElement('div');
+                    label.className = 'node-label';
+                    label.style.color = textColor;
+                    
+                    let html = `<div class="category-name">${node.data.name}</div>`;
+                    
+                    if (nodeHeight > 60) {
+                        html += `<div class="category-count">${node.data.count}</div>`;
+                        html += `<div class="category-percentage">${node.data.percentage}%</div>`;
+                    } else if (nodeHeight > 40) {
+                        html += `<div class="category-count">${node.data.count}</div>`;
+                    }
+                    
+                    label.innerHTML = html;
+                    div.appendChild(label);
+                }
+
+                // Hover effects
+                div.addEventListener('mouseenter', (e) => {
+                    tooltip.innerHTML = `
+                        <strong>${node.data.name}</strong><br>
+                        Objects: ${node.data.count.toLocaleString()}<br>
+                        Percentage: ${node.data.percentage}%
+                    `;
+                    tooltip.className = 'visible';
+                });
+
+                div.addEventListener('mousemove', (e) => {
+                    tooltip.style.left = (e.clientX + 15) + 'px';
+                    tooltip.style.top = (e.clientY - 15) + 'px';
+                });
+
+                div.addEventListener('mouseleave', () => {
+                    tooltip.className = '';
+                });
+
+                container.appendChild(div);
+            });
+        }
+
+        // Initialize and handle resize
+        createTreemap();
+        
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(createTreemap, 250);
+        });
+    </script>
+</body>
+</html>
