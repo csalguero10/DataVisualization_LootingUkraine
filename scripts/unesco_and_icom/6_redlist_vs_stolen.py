@@ -200,13 +200,13 @@ def generate_chart():
             "Category": cat,
             "Share": r_share,
             "Share_Label": f"{r_share:.1%}",
-            "Source": "Red List (ICOM risk categories)",
+            "Source": "Red List (ICOM)",
         })
         rows.append({
             "Category": cat,
             "Share": s_share,
             "Share_Label": f"{s_share:.1%}",
-            "Source": "Stolen objects (mapped to ICOM)",
+            "Source": "Stolen objects",
         })
 
     df_final = pd.DataFrame(rows)
@@ -222,7 +222,7 @@ def generate_chart():
         color=alt.Color(
             "Source:N",
             scale=alt.Scale(
-                domain=["Red List (ICOM risk categories)", "Stolen objects (mapped to ICOM)"],
+                domain=["Red List (ICOM)", "Stolen objects"],
                 range=["#C0392B", "#7F8C8D"],
             ),
             legend=alt.Legend(
@@ -314,11 +314,7 @@ def generate_chart():
     <h1>
       What the <span style="color:#C0392B;">Red List</span> anticipates vs what is actually <span style="color:#7F8C8D;">stolen</span>
     </h1>
-    <p class="subtitle">
-      Stolen objects are mapped to ICOM-style categories using operational rules based on object type and descriptive cues
-      (icons, manuscripts/books, liturgical objects, and archaeological-context proxies). Archaeology uses an optional date support
-      threshold of ≤ {ARCHAEOLOGY_DATE_THRESHOLD} only when paired with weak material cues.
-    </p>
+    
 
     <div id="vis"></div>
   </div>
