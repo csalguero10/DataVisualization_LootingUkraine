@@ -1794,3 +1794,58 @@ footer img {max-width: 156px;}
     text-align: left;
     background-color: #fafafa;
 }
+
+
+/* Aggiungi alla fine del file CSS (dopo la riga 3060) */
+
+/* ===================================
+    Custom spacing for institutions tab
+====================================== */
+
+/* Riduci lo spazio tra i blocchi nella tab */
+#rq-urban .row {
+    margin-bottom: 10px !important;
+}
+
+/* Riduci il padding interno delle colonne di testo */
+#rq-urban .projects-text-col {
+    padding: 15px 20px !important;
+}
+
+/* Riduci i margini tra i paragrafi */
+#rq-urban .text-medium {
+    margin-bottom: 15px !important;
+}
+
+/* Specifica per margin-two-top - riduci drasticamente */
+#rq-urban .margin-two-top {
+    margin-top: 10px !important;
+}
+
+/* Riduci lo spazio sopra e sotto le visualizzazioni */
+#rq-urban .projects-viz-row {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+/* Riduci il padding della tab stessa se necessario */
+#rq-urban.tab-pane {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+}
+
+/* Riduci lo spazio tra i paragrafi e le visualizzazioni */
+#rq-urban .row.margin-twenty {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+/* Se hai .margin-twenty-nine per la didascalia, riducilo */
+#rq-urban .margin-twenty-nine {
+    margin: 10px 0 5px 0 !important;
+}
+
+/* Riduci lo spazio tra i bridge sections */
+#rq-urban .row.margin-twenty.no-margin-lr.no-margin-bottom {
+    margin-bottom: 20px !important;
+}
