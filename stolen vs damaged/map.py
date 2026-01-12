@@ -21,7 +21,7 @@ ACLED_MODE = "two_layers"  # "two_layers" recommended
 
 OUTFILE = "map_plus_bar_2022.png"
 
-URL_STOLEN = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/main/data_stolen/stolen_objects_ukraine_cleaned.csv"
+URL_STOLEN = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/main/stolen_objects_ukraine_cleaned.csv"
 URL_UNESCO = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/main/raw_data/unesco_damage_sites.csv"
 URL_ACLED  = "https://media.githubusercontent.com/media/csalguero10/DisperseArt_InformationVisualization/bc92f709426671effb51f96261de4a53e2ac7b1b/processed_data/acled_clean.csv"
 
