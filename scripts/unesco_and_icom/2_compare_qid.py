@@ -1,7 +1,6 @@
 import pandas as pd
 import os
 
-# --- 1. CONFIGURAZIONE URL ---
 URL_UNESCO_LIST = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/refs/heads/main/processed_data/2_ukraine_list_qid_coord.csv"
 URL_UNESCO_DAMAGED = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/refs/heads/main/processed_data/unesco-damage-sites-qid.csv"
 URL_L4R = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/refs/heads/main/processed_data/cultural_damage_l4R_wiki_enriched.csv"
@@ -29,7 +28,6 @@ def run_matching_analysis():
         if not col: return set()
         return set(df[col].dropna().astype(str).str.strip().unique())
 
-    # Identifichiamo le colonne QID nei tre file
     col_list = get_actual_column(df_u_list, 'QID')
     col_dmg = get_actual_column(df_u_damaged, 'qid')
     col_l4r = get_actual_column(df_l4r, 'wikidata_id')

@@ -7,14 +7,10 @@ URL_STOLEN = "https://raw.githubusercontent.com/csalguero10/DisperseArt_Informat
 
 OUTPUT_FILE = "DisperseArt_InformationVisualization/scripts/unesco_and_icom/viz/redlist_vs_stolen.html"
 
-# Optional support signal for archaeology ONLY when paired with weak material cues
-# (ICOM archaeology is contextual; this is a proxy under data constraints)
-ARCHAEOLOGY_DATE_THRESHOLD = 1500  # try 1400 / 1500 / 1600 (lower = stricter)
+
+ARCHAEOLOGY_DATE_THRESHOLD = 1500  #  1400 
 
 
-# -----------------------------
-# Helpers
-# -----------------------------
 def safe_str(x) -> str:
     if pd.isna(x):
         return ""
@@ -48,9 +44,6 @@ def extract_year(val):
     return None
 
 
-# -----------------------------
-# ICOM categories (target)
-# -----------------------------
 ICOM_CATEGORIES = [
     "PAINTINGS",
     "ARCHAEOLOGY",
@@ -59,13 +52,7 @@ ICOM_CATEGORIES = [
     "RELIGIOUS OBJECTS",
 ]
 
-# -----------------------------
-# Keyword sets (tuned on your counts)
-# - ICONS: include EN variants + UA/RU spellings
-# - BOOKS: broaden beyond "book/manuscript" to documents/registers/archives etc.
-# - RELIGIOUS: liturgical/church cues, including UA/RU stems
-# - ARCHAEOLOGY: split STRONG vs WEAK cues to reduce false positives
-# -----------------------------
+
 ICON_KW = [
     " icon ", " icons ", "icon,", "icon.", "icon:", "iconostasis",
     "ikon", "ikona", "икона", "ікона", "ікони", "иконы"
@@ -77,34 +64,30 @@ BOOKS_KW = [
     "archive", "archival", "document", "documents", "inventory", "register",
     "bible", "gospel", "psalter", "evangeliary", "liturgical book",
     "map", "atlas", "sheet music", "score",
-    # UA/RU stems (very common in descriptions)
     "книга", "книг", "рукопис", "рукоп", "манускрип", "архів", "архив",
     "документ", "реєстр", "реестр"
 ]
 
 RELIGIOUS_KW = [
-    # liturgical objects & church furnishing (EN)
     "chalice", "ciborium", "patena", "paten", "reliquary", "reliquia", "relic",
     "censer", "thurible", "incense", "cross", "crucifix", "processional",
     "altar", "liturgical", "liturgy", "monstrance", "tabernacle",
     "church", "cathedral", "monastery", "abbey", "chapel", "parish",
     "priest", "bishop", "saint", "sacred", "devotional",
-    # UA/RU stems (keep them short on purpose to catch inflections)
     "церк", "храм", "собор", "каплиц", "каплич", "монаст", "лавр",
     "крест", "хрест", "розп'ят", "распят",
     "свят", "бог", "євангел", "евангел", "літург", "литург",
-    "іконостас", "иконостас"  # note: icons handled earlier; still OK here (excluded by priority)
+    "іконостас", "иконостас" 
 ]
 
 PAINTING_KW = [
     "painting", "paintings", "oil on", "canvas", "panel", "watercolor", "watercolour",
-    "икона на доске", "полотно", "живопис"  # optional: can overlap; icons handled first
+    "икона на доске", "полотно", "живопис" 
 ]
 
 ARCH_CONTEXT_KW = [
     "excavation", "excavated", "archaeological", "archaeology", "findspot",
     "site", "settlement", "burial", "tumulus", "kurgan", "hoard", "stratum",
-    # UA/RU stems
     "розкоп", "раскоп", "археолог", "похован", "знахід", "находк", "скарб"
 ]
 
@@ -149,7 +132,6 @@ def map_stolen_to_icom(row) -> str:
       6) OTHER / MISC
     """
 
-    # columns we try to read if present
     cols_for_text = []
     for c in [
         "category", "title", "name", "description",
@@ -161,21 +143,17 @@ def map_stolen_to_icom(row) -> str:
     blob = text_blob(row, cols_for_text)
     cat_raw = safe_str(row.get("category", "")).lower()
 
-    # --- 1) ICONS ---
-    # use blob + category hint
+  
     if ("icon" in cat_raw) or any(k in blob for k in ICON_KW):
         return "ICONS"
 
-    # --- 2) BOOKS / MANUSCRIPTS ---
     if ("manuscript" in cat_raw) or ("book" in cat_raw) or any(k in blob for k in BOOKS_KW):
         return "BOOKS / MANUSCRIPTS"
 
-    # --- 3) ARCHAEOLOGY (ICOM proxy) ---
     context_hit = any(k in blob for k in ARCH_CONTEXT_KW)
     strong_hit = any(k in blob for k in ARCH_OBJECT_STRONG)
     weak_hit = any(k in blob for k in ARCH_OBJECT_WEAK)
 
-    # Optional date support (only helps when weak_hit is true)
     year = None
     if "date_normalized" in row.index:
         year = extract_year(row.get("date_normalized"))
@@ -191,11 +169,9 @@ def map_stolen_to_icom(row) -> str:
     if context_hit or strong_hit or (weak_hit and early_date_hit):
         return "ARCHAEOLOGY"
 
-    # --- 4) RELIGIOUS OBJECTS (liturgical/church cues, excluding icons/books already handled) ---
     if ("religious" in cat_raw) or any(k in blob for k in RELIGIOUS_KW):
         return "RELIGIOUS OBJECTS"
 
-    # --- 5) PAINTINGS ---
     if ("painting" in cat_raw) or any(k in blob for k in PAINTING_KW):
         return "PAINTINGS"
 
@@ -203,15 +179,12 @@ def map_stolen_to_icom(row) -> str:
 
 
 def generate_chart():
-    # --- LOAD ---
     df_r = pd.read_csv(URL_RED_LIST)
     df_s = pd.read_csv(URL_STOLEN)
 
-    # --- MAP / NORMALIZE ---
     df_r["cat_clean"] = df_r["category"].apply(normalize_redlist)
     df_s["cat_clean"] = df_s.apply(map_stolen_to_icom, axis=1)
 
-    # --- COUNTS / SHARES ---
     red_counts = df_r["cat_clean"].value_counts().to_dict()
     stolen_counts = df_s["cat_clean"].value_counts().to_dict()
 
@@ -238,7 +211,6 @@ def generate_chart():
 
     df_final = pd.DataFrame(rows)
 
-    # --- CHART ---
     base = alt.Chart(df_final).encode(
         x=alt.X(
             "Category:N",
@@ -297,7 +269,6 @@ def generate_chart():
         background="white",
     ).configure_view(strokeWidth=0)
 
-    # --- EXPORT HTML ---
     spec_json = chart.to_json(indent=None)
 
     html = f"""<!DOCTYPE html>

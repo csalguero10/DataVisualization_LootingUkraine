@@ -135,16 +135,15 @@ def main():
         filtered_df.to_csv(OUTPUT_FILE, index=False, encoding='utf-8-sig')
         
         end_time = time.time()
-        print(f"✅ Query completata in {end_time - start_time:.2f} secondi")
-        print(f"✅ Trovati {len(filtered_df)} siti culturali danneggiati")
-        print(f"✅ File salvato: {OUTPUT_FILE}")
+        print(f"Query completata in {end_time - start_time:.2f} secondi")
+        print(f"Trovati {len(filtered_df)} siti culturali danneggiati")
+        print(f"File salvato: {OUTPUT_FILE}")
         
-        # Anteprima
         print("\nPRIMI 10 SITI TROVATI:")
         print(filtered_df[['qid', 'name', 'type', 'location', 'date']].head(10).to_string(index=False))
         
     else:
-        print("❌ Nessun risultato trovato")
+        print("Nessun risultato trovato")
 
 if __name__ == "__main__":
     main()

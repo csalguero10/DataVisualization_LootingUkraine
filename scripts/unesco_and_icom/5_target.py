@@ -51,7 +51,6 @@ def circle_points(radius_m, n_points=120):
     return pd.DataFrame(pts)
 
 def main():
-    # Caricamento dati
     df_p = pd.read_csv(URL_UNESCO_PROTETTI, sep=";")
     df_d = pd.read_csv(URL_UNESCO_DANNEGGIATI)
 
@@ -62,7 +61,6 @@ def main():
     df_p = df_p.dropna(subset=["p_coords"])
     df_d = df_d.dropna(subset=["d_coords"])
 
-    # Calcolo distanze
     intersections = []
     for _, p in df_p.iterrows():
         for _, d in df_d.iterrows():
@@ -85,20 +83,17 @@ def main():
     max_dist = float(df_focus["Distance_m"].max())
     min_dist = float(df_focus["Distance_m"].min())
 
-    # Posizionamento punti impatto
     n = len(df_focus)
     df_focus["angle"] = [2 * math.pi * i / n for i in range(n)]
     df_focus["x"] = df_focus.apply(lambda r: r["Distance_m"] * math.cos(r["angle"]), axis=1)
     df_focus["y"] = df_focus.apply(lambda r: r["Distance_m"] * math.sin(r["angle"]), axis=1)
 
-    # Definizione Anelli (Rings)
     ring_radii = [250, 500, 1000]
     rings_df = pd.concat([circle_points(r) for r in ring_radii], ignore_index=True)
 
     pad = 120
     domain_max = max(ring_radii) + pad
 
-    # GRAFICO: Cerchi (Corretto con order="order:Q")
     rings = (
         alt.Chart(rings_df)
         .mark_line(stroke="lightgray", strokeDash=[4, 4], strokeWidth=1)
@@ -106,11 +101,10 @@ def main():
             x=alt.X("x:Q", scale=alt.Scale(domain=[-domain_max, domain_max]), axis=None),
             y=alt.Y("y:Q", scale=alt.Scale(domain=[-domain_max, domain_max]), axis=None),
             detail="r:Q",
-            order="order:Q" # <--- QUESTO ELIMINA IL DISTURBO VISIVO
+            order="order:Q"
         )
     )
 
-    # Etichette cerchi
     labels_df = pd.DataFrame({
         "x": [-(r + 40) for r in ring_radii],
         "y": [0 for _ in ring_radii],
@@ -127,7 +121,6 @@ def main():
         )
     )
 
-    # Logo Centrale
     center_df = pd.DataFrame([{
         "x": 0, "y": 0, "url": UNESCO_LOGO_URL,
         "site_name": UNESCO_SITE_INFO["name"],
@@ -153,7 +146,6 @@ def main():
         )
     )
 
-    # Punti Impatto
     impacts = (
         alt.Chart(df_focus)
         .mark_circle(size=150, opacity=0.9, stroke="white", strokeWidth=1)
@@ -172,14 +164,12 @@ def main():
         )
     )
 
-    # Composizione Finale
     final_chart = (rings + ring_labels + center_logo + impacts).properties(
         width=650,
         height=650,
         background="white",
     ).configure_view(strokeWidth=0)
 
-    # Generazione HTML
     chart_json = final_chart.to_json()
     html_content = f"""
     <!DOCTYPE html>

@@ -4,16 +4,10 @@ from geopy.distance import geodesic
 import re
 import os
 
-# --- CONFIGURAZIONE ---
 URL_UNESCO_PROTETTI = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/refs/heads/main/processed_data/2_ukraine_list_qid_coord.csv"
 URL_UNESCO_DANNEGGIATI = "https://raw.githubusercontent.com/csalguero10/DisperseArt_InformationVisualization/refs/heads/main/processed_data/cultural_damage_l4R_wiki_enriched.csv"
-
-# Percorso di output per la visualizzazione HTML
 OUTPUT_FILE = "DisperseArt_InformationVisualization/scripts/unesco_and_icom/viz/unesco_spatial_intersection.html"
 
-# -----------------------------
-# Helpers
-# -----------------------------
 def parse_coords(val):
     if pd.isna(val) or str(val).strip() == "" or str(val).lower() == "nan":
         return None
@@ -28,22 +22,18 @@ def categorize_distance(dist_m):
     return "500 - 1000m"
 
 def main():
-    # --- CARICAMENTO DATI ---
     print("Caricamento dati...")
     df_p = pd.read_csv(URL_UNESCO_PROTETTI, sep=";")
     df_d = pd.read_csv(URL_UNESCO_DANNEGGIATI)
 
-    # Pulizia coordinate protetti
     df_p["p_coords"] = df_p["coordinates"].apply(parse_coords)
     df_p = df_p.dropna(subset=["p_coords"]).reset_index(drop=True)
 
-    # Pulizia coordinate danneggiati
     df_d['latitude'] = pd.to_numeric(df_d['latitude'], errors='coerce')
     df_d['longitude'] = pd.to_numeric(df_d['longitude'], errors='coerce')
     df_d = df_d.dropna(subset=['latitude', 'longitude']).reset_index(drop=True)
     df_d["d_coords"] = list(zip(df_d["latitude"], df_d["longitude"]))
 
-    # --- CALCOLO INTERSEZIONI (Logica Originale) ---
     intersections = []
     print(f"Calcolo intersezioni spaziali per {len(df_p)} siti protetti...")
 
@@ -70,7 +60,6 @@ def main():
 
     report_df['Fascia_Distanza'] = report_df['Distance_m'].apply(categorize_distance)
 
-    # --- COSTRUZIONE GRAFICO ALTAIR ---
     chart = alt.Chart(report_df).mark_bar(
         cornerRadiusTopLeft=4,
         cornerRadiusTopRight=4,
@@ -101,10 +90,8 @@ def main():
         titleFontSize=14
     )
 
-    # --- ESPORTAZIONE HTML STILIZZATO ---
     spec_json = chart.to_json(indent=None)
 
-    # Creazione cartella se non esiste
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
 
     html = f"""<!DOCTYPE html>
@@ -167,7 +154,7 @@ Spatial Intersection: UNESCO Sites Under Threat    </h1>
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         f.write(html)
 
-    print(f"✓ HTML salvato con successo in: {OUTPUT_FILE}")
+    print(f"HTML salvato con successo in: {OUTPUT_FILE}")
 
 if __name__ == "__main__":
     main()
