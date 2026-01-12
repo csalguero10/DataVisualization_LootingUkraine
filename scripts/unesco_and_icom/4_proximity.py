@@ -138,7 +138,7 @@ def main():
     <h1>
 Spatial Intersection: UNESCO Sites Under Threat    </h1>
     <p class="subtitle">
-      Analysis of verified damage reports occurring within a 1 km radius of UNESCO sites (World Heritage and Tentative Lists). Extreme proximity highlights cases where damage occurred directly within or in the immediate vicinity of the protected area.
+      Analysis of verified damage reports occurring within a 1 km radius of UNESCO sites (World Heritage and Tentative Lists).
     </p>
 
     <div id="vis"></div>
