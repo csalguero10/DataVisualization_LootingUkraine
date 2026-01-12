@@ -187,7 +187,7 @@ def main():
     </head>
     <body>
       <div class="viz-wrapper">
-        <h1 style="font-size:24px; color:#2C3E50;">Historic Centre of Tchernihiv: within the range of attacks</h1>
+        <h1 style="font-size:24px; color:#2C3E50;">Tchernihiv: Protection Under Fire</h1>
         <p style="color:#666; margin-bottom:20px;">
             Distance of documented damage from the UNESCO site center. Closest: {min_dist}m.
         </p>
