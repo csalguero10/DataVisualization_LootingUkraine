@@ -10,7 +10,7 @@ Using a data-driven approach, the website explores how different forms of cultur
 
 🔗 Project website: https://csalguero10.github.io/DataVisualization_LootingUkraine/
 
-🔗 Project notebook: https://colab.research.google.com/drive/1gtZOA8Lxsj58iOOaAueS3Mk1qSnBT414?usp=sharing
+🔗 Project notebook: (https://colab.research.google.com/drive/1r2cBMUz7M8ZVIm0hL8LpuOTPPuPGnEJN?usp=sharing)
 
 ---
 
