@@ -1,53 +1,19 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Red List vs Stolen – mapped to ICOM categories</title>
-  <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-  <style>
-    body {
-      margin: 0;
-      padding: 40px 0;
-      background: #ffffff;
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    }
-    .viz-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #222;
-    }
-    p.subtitle {
-      font-size: 14px;
-      margin-top: 0;
-      margin-bottom: 22px;
-      color: #555;
-      max-width: 820px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.35;
-    }
-  </style>
-</head>
-<body>
-  <div class="viz-wrapper">
-    <h1>
-      What the <span style="color:#C0392B;">Red List</span> anticipates vs what is actually <span style="color:#7F8C8D;">stolen</span>
-    </h1>
-    
-
-    <div id="vis"></div>
-  </div>
-
-  <script>
-    vegaEmbed("#vis", {"$schema": "https://vega.github.io/schema/vega-lite/v6.1.0.json", "background": "white", "config": {"view": {"continuousHeight": 300, "continuousWidth": 300, "strokeWidth": 0}}, "data": {"name": "data-22342966e6b1ce76b26f123bc5dea7b0"}, "datasets": {"data-22342966e6b1ce76b26f123bc5dea7b0": [{"Category": "PAINTINGS", "Share": 0.1320754716981132, "Share_Label": "13.2%", "Source": "Red List (ICOM)"}, {"Category": "PAINTINGS", "Share": 0.37385220813292525, "Share_Label": "37.4%", "Source": "Stolen objects"}, {"Category": "ARCHAEOLOGY", "Share": 0.3018867924528302, "Share_Label": "30.2%", "Source": "Red List (ICOM)"}, {"Category": "ARCHAEOLOGY", "Share": 0.26366418889374726, "Share_Label": "26.4%", "Source": "Stolen objects"}, {"Category": "ICONS", "Share": 0.05660377358490566, "Share_Label": "5.7%", "Source": "Red List (ICOM)"}, {"Category": "ICONS", "Share": 0.013992129427197202, "Share_Label": "1.4%", "Source": "Stolen objects"}, {"Category": "BOOKS / MANUSCRIPTS", "Share": 0.1320754716981132, "Share_Label": "13.2%", "Source": "Red List (ICOM)"}, {"Category": "BOOKS / MANUSCRIPTS", "Share": 0.003060778312199388, "Share_Label": "0.3%", "Source": "Stolen objects"}, {"Category": "RELIGIOUS OBJECTS", "Share": 0.11320754716981132, "Share_Label": "11.3%", "Source": "Red List (ICOM)"}, {"Category": "RELIGIOUS OBJECTS", "Share": 0.014429383471797114, "Share_Label": "1.4%", "Source": "Stolen objects"}]}, "height": 450, "layer": [{"encoding": {"color": {"field": "Source", "legend": {"direction": "vertical", "labelFontSize": 12, "orient": "top-right", "title": null}, "scale": {"domain": ["Red List (ICOM)", "Stolen objects"], "range": ["#C0392B", "#7F8C8D"]}, "type": "nominal"}, "tooltip": [{"field": "Category", "title": "Category", "type": "nominal"}, {"field": "Source", "title": "Source", "type": "nominal"}, {"field": "Share_Label", "title": "Share", "type": "nominal"}], "x": {"axis": {"labelAngle": 0, "labelColor": "#333", "labelPadding": 10}, "field": "Category", "sort": ["PAINTINGS", "ARCHAEOLOGY", "ICONS", "BOOKS / MANUSCRIPTS", "RELIGIOUS OBJECTS"], "title": null, "type": "nominal"}, "xOffset": {"field": "Source", "type": "nominal"}, "y": {"axis": null, "field": "Share", "scale": {"domain": [0, 0.429930039352864]}, "title": null, "type": "quantitative"}}, "mark": {"cornerRadiusTopLeft": 4, "cornerRadiusTopRight": 4, "size": 40, "type": "bar"}}, {"encoding": {"color": {"field": "Source", "legend": {"direction": "vertical", "labelFontSize": 12, "orient": "top-right", "title": null}, "scale": {"domain": ["Red List (ICOM)", "Stolen objects"], "range": ["#C0392B", "#7F8C8D"]}, "type": "nominal"}, "text": {"field": "Share_Label", "type": "nominal"}, "x": {"axis": {"labelAngle": 0, "labelColor": "#333", "labelPadding": 10}, "field": "Category", "sort": ["PAINTINGS", "ARCHAEOLOGY", "ICONS", "BOOKS / MANUSCRIPTS", "RELIGIOUS OBJECTS"], "title": null, "type": "nominal"}, "xOffset": {"field": "Source", "type": "nominal"}, "y": {"field": "Share", "type": "quantitative"}}, "mark": {"align": "center", "baseline": "middle", "color": "white", "dy": -10, "fontSize": 14, "fontWeight": "bold", "type": "text"}}], "width": 800}, { actions: false });
-  </script>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ICOM Red List vs stolen objects</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+<style>
+ html,body{margin:0;padding:0;background:#fff;font-family:Roboto,Helvetica Neue,Arial,sans-serif;color:#1a1a1a}
+ #wrap{max-width:900px;margin:0 auto;padding:16px 16px 8px;box-sizing:border-box}
+ #vis{width:100%} .vega-embed{width:100%} .vega-embed summary{display:none}
+ .note{font-size:12px;line-height:1.5;color:#6b6a66;margin:6px 0 0}
+ #vg-tooltip-element{font-family:Roboto,Arial,sans-serif;font-size:12px;border-radius:4px}
+</style></head>
+<body><div id="wrap"><div id="vis"></div><p class="note">The Red List is a typological guide of 53 example objects, not an inventory: one example weighs about 2 percentage points. 1,233 of the stolen objects come from the Kherson Art Museum, which accounts for 95% of stolen paintings and all graphic works.</p></div>
+<script>
+ const spec = {"$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json", "config": {"axis": {"domainColor": "#cfcfcc", "gridColor": "#ececea", "labelColor": "#52514e", "labelFont": "Roboto, Helvetica Neue, Arial, sans-serif", "labelFontSize": 11, "tickColor": "#cfcfcc", "titleColor": "#52514e", "titleFont": "Roboto, Helvetica Neue, Arial, sans-serif", "titleFontSize": 11, "titleFontWeight": 500}, "background": "#ffffff", "font": "Roboto, Helvetica Neue, Arial, sans-serif", "header": {"labelColor": "#1a1a1a", "labelFont": "Montserrat, Helvetica Neue, Arial, sans-serif", "labelFontSize": 12, "titleFont": "Montserrat, Helvetica Neue, Arial, sans-serif"}, "legend": {"labelColor": "#52514e", "labelFont": "Roboto, Helvetica Neue, Arial, sans-serif", "labelFontSize": 12, "labelLimit": 420, "orient": "top", "symbolSize": 110, "symbolType": "circle", "title": null, "titleColor": "#52514e", "titleFont": "Roboto, Helvetica Neue, Arial, sans-serif"}, "title": {"anchor": "start", "color": "#1a1a1a", "font": "Montserrat, Helvetica Neue, Arial, sans-serif", "fontSize": 16, "fontWeight": 700, "offset": 14, "subtitleColor": "#52514e", "subtitleFont": "Roboto, Helvetica Neue, Arial, sans-serif", "subtitleFontSize": 12}, "view": {"stroke": null}}, "data": {"name": "data-0205ddf9ccf3a4552166f269a3b9aa13"}, "datasets": {"data-0205ddf9ccf3a4552166f269a3b9aa13": [{"Category": "Archaeology", "Share": 30.18867924528302, "Source": "ICOM Red List (n=53)"}, {"Category": "Paintings", "Share": 13.20754716981132, "Source": "ICOM Red List (n=53)"}, {"Category": "Graphics (works on paper)", "Share": 0.0, "Source": "ICOM Red List (n=53)"}, {"Category": "Icons", "Share": 5.660377358490567, "Source": "ICOM Red List (n=53)"}, {"Category": "Books & manuscripts", "Share": 13.20754716981132, "Source": "ICOM Red List (n=53)"}, {"Category": "Numismatics", "Share": 7.547169811320755, "Source": "ICOM Red List (n=53)"}, {"Category": "Religious objects", "Share": 11.320754716981133, "Source": "ICOM Red List (n=53)"}, {"Category": "Applied arts, jewellery & textiles", "Share": 18.867924528301888, "Source": "ICOM Red List (n=53)"}, {"Category": "Other", "Share": 0.0, "Source": "ICOM Red List (n=53)"}, {"Category": "Archaeology", "Share": 38.74070835155225, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Paintings", "Share": 38.21600349803236, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Graphics (works on paper)", "Share": 16.265850459116745, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Icons", "Share": 1.3992129427197202, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Books & manuscripts", "Share": 0.13117621337997376, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Numismatics", "Share": 4.241364232619152, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Religious objects", "Share": 0.0, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Applied arts, jewellery & textiles", "Share": 0.6121556624398776, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Other", "Share": 0.3935286401399213, "Source": "Stolen objects, all (n=2,287)"}, {"Category": "Archaeology", "Share": 84.0607210626186, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Paintings", "Share": 4.364326375711575, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Graphics (works on paper)", "Share": 0.0, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Icons", "Share": 0.09487666034155598, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Books & manuscripts", "Share": 0.2846299810246679, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Numismatics", "Share": 9.20303605313093, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Religious objects", "Share": 0.0, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Applied arts, jewellery & textiles", "Share": 1.3282732447817838, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}, {"Category": "Other", "Share": 0.6641366223908919, "Source": "Stolen objects excl. Kherson Art Museum (n=1,054)"}]}, "facet": {"row": {"field": "Category", "header": {"labelAlign": "left", "labelAnchor": "start", "labelAngle": 0, "labelOrient": "top", "labelPadding": 3}, "sort": ["Archaeology", "Paintings", "Graphics (works on paper)", "Icons", "Books & manuscripts", "Numismatics", "Religious objects", "Applied arts, jewellery & textiles", "Other"], "title": null, "type": "nominal"}}, "spec": {"height": 46, "layer": [{"encoding": {"color": {"field": "Source", "legend": {"direction": "vertical"}, "scale": {"domain": ["ICOM Red List (n=53)", "Stolen objects, all (n=2,287)", "Stolen objects excl. Kherson Art Museum (n=1,054)"], "range": ["#2E6FAB", "#E31D3B", "#1B8A64"]}, "sort": ["ICOM Red List (n=53)", "Stolen objects, all (n=2,287)", "Stolen objects excl. Kherson Art Museum (n=1,054)"], "type": "nominal"}, "tooltip": [{"field": "Category", "type": "nominal"}, {"field": "Source", "type": "nominal"}, {"field": "Share", "format": ".1f", "title": "% of source", "type": "quantitative"}], "x": {"field": "Share", "scale": {"domain": [0, 100]}, "title": "% of each source", "type": "quantitative"}, "y": {"axis": null, "field": "Source", "sort": ["ICOM Red List (n=53)", "Stolen objects, all (n=2,287)", "Stolen objects excl. Kherson Art Museum (n=1,054)"], "type": "nominal"}}, "mark": {"cornerRadiusEnd": 3, "height": 11, "type": "bar"}}, {"encoding": {"color": {"value": "#52514e"}, "text": {"field": "Share", "format": ".0f", "type": "quantitative"}, "x": {"field": "Share", "scale": {"domain": [0, 100]}, "title": "% of each source", "type": "quantitative"}, "y": {"axis": null, "field": "Source", "sort": ["ICOM Red List (n=53)", "Stolen objects, all (n=2,287)", "Stolen objects excl. Kherson Art Museum (n=1,054)"], "type": "nominal"}}, "mark": {"align": "left", "dx": 4, "fontSize": 10, "type": "text"}}], "width": "container"}, "title": {"subtitle": "Both sources mapped onto the same categories with the same rules", "text": "ICOM Red List categories vs reported stolen objects"}};
+ vegaEmbed('#vis', spec, {actions:false, renderer:'svg'});
+</script></body></html>
