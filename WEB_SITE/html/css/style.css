@@ -1905,3 +1905,6 @@ footer img {max-width: 156px;}
 #rq-landscape .projects-text-col:has(> h6) { padding-top: 30px !important; padding-bottom: 0 !important; }
 #rq-urban .row.margin-twenty { margin-top: 0 !important; }
 #rq-urban .row.margin-twenty > .projects-text-col > p:first-child { margin-top: 0; }
+/* space between RQ3 / RQ4 sub-headings and the text below */
+#rq-landscape .projects-text-col > h6 { padding-bottom: 16px !important; }
+#rq-urban .projects-text-col > h6 { padding-bottom: 5px !important; }
