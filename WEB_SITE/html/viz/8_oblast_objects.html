@@ -159,7 +159,7 @@
 </head>
 <body>
     <div class="header-section">
-        <h1>WHERE THE OBJECTS COME FROM</h1>
+        <h1>UKRAINIAN REGIONS MOST AFFECTED</h1>
         <p class="subtitle">Objects stored in the State Hermitage by current Ukrainian oblast (administrative region)</p>
         <p class="instructions">Hover over clusters to see details · Click to highlight</p>
     </div>
@@ -190,18 +190,18 @@
     <script>
         // Data for each oblast with new color scheme
         const oblastData = [
-            {name: "Crimea (incl. Sevastopol)", count: 6253, period: "Scythian-Sarmatian Era", dates: "52,500 BC - 1,550 AD", color: "rgba(169, 57, 34, 0.85)"},
-            {name: "Vinnytsia", count: 3480, period: "Scythian-Sarmatian Era", dates: "3,500 BC - 350 BC", color: "rgba(207, 88, 48, 0.85)"},
-            {name: "Chernivtsi", count: 2027, period: "Paleolithic Period", dates: "120,000 BC - 350 BC", color: "rgba(184, 134, 93, 0.85)"},
-            {name: "Khmelnytskyi", count: 722, period: "Paleolithic Period", dates: "57,000 BC - 4,500 BC", color: "rgba(196, 78, 54, 0.85)"},
-            {name: "Cherkasy", count: 589, period: "Scythian-Sarmatian Era", dates: "1,500 BC - 150 AD", color: "rgba(217, 108, 67, 0.85)"},
-            {name: "Kharkiv", count: 493, period: "Neolithic Period", dates: "5,500 BC - 250 BC", color: "rgba(153, 102, 82, 0.85)"},
-            {name: "Sumy", count: 254, period: "Scythian-Sarmatian Era", dates: "650 BC - 850 AD", color: "rgba(179, 89, 62, 0.85)"},
-            {name: "Poltava", count: 220, period: "Scythian-Sarmatian Era", dates: "650 BC - 650 AD", color: "rgba(191, 118, 83, 0.85)"},
-            {name: "Zaporizhzhia", count: 130, period: "Scythian-Sarmatian Era", dates: "1,500 BC - 50 BC", color: "rgba(140, 115, 102, 0.85)"},
-            {name: "Kirovohrad", count: 77, period: "Scythian-Sarmatian Era", dates: "650 BC - 100 AD", color: "rgba(166, 128, 105, 0.85)"},
-            {name: "Zakarpattia", count: 66, period: "Paleolithic Period", dates: "43,500 BC - 250 BC", color: "rgba(189, 143, 115, 0.85)"},
-            {name: "Other/Unknown", count: 197, period: "Scythian-Sarmatian Era", dates: "22,000 BC - 1,150 AD", color: "rgba(156, 124, 107, 0.85)"}
+            {name: "Crimea", count: 6148, period: "Unknown Period", dates: "-52,500 BC - 1,550 AD", color: "rgba(169, 57, 34, 0.85)"},
+            {name: "Vinnytsia", count: 3518, period: "Scythian-Sarmatian Era", dates: "-3,500 - 250 BC", color: "rgba(207, 88, 48, 0.85)"},
+            {name: "Ivano-Frankivsk", count: 2749, period: "Paleolithic Period", dates: "-120,000 - 350 BC", color: "rgba(184, 134, 93, 0.85)"},
+            {name: "Cherkasy", count: 481, period: "Scythian-Sarmatian Era", dates: "650 BC - 100 AD", color: "rgba(196, 78, 54, 0.85)"},
+            {name: "Luhansk", count: 347, period: "Neolithic Period", dates: "-5,500 - 250 BC", color: "rgba(217, 108, 67, 0.85)"},
+            {name: "Kyiv", count: 332, period: "Scythian-Sarmatian Era", dates: "-1,500 BC - 150 AD", color: "rgba(153, 102, 82, 0.85)"},
+            {name: "Dnipropetrovsk", count: 274, period: "Scythian-Sarmatian Era", dates: "-1,500 BC - 650 AD", color: "rgba(179, 89, 62, 0.85)"},
+            {name: "Kharkiv", count: 248, period: "Scythian-Sarmatian Era", dates: "-5,500 BC - 850 AD", color: "rgba(191, 118, 83, 0.85)"},
+            {name: "Kherson", count: 150, period: "Unknown Period", dates: "450 - 50 BC", color: "rgba(140, 115, 102, 0.85)"},
+            {name: "Other/Unknown", count: 109, period: "Scythian-Sarmatian Era", dates: "650 - 350 BC", color: "rgba(166, 128, 105, 0.85)"},
+            {name: "Lviv", count: 66, period: "Paleolithic Period", dates: "-43,500 - 250 BC", color: "rgba(189, 143, 115, 0.85)"},
+            {name: "Khmelnytskyi", count: 44, period: "Kievan Rus Period", dates: "-22,000 BC - 1150 AD", color: "rgba(156, 124, 107, 0.85)"}
         ];
 
         const canvas = document.getElementById('canvas');
@@ -386,7 +386,7 @@
                     // Show tooltip
                     tooltip.innerHTML = `
                         <div class="tooltip-title">${cluster.oblast.name} Oblast</div>
-                        <div class="tooltip-info"><strong>${cluster.oblast.count.toLocaleString()}</strong> objects (${(cluster.oblast.count / 14508 * 100).toFixed(1)}%)</div>
+                        <div class="tooltip-info"><strong>${cluster.oblast.count.toLocaleString()}</strong> objects (${(cluster.oblast.count / 14466 * 100).toFixed(1)}%)</div>
                         <div class="tooltip-info">Period: ${cluster.oblast.period}</div>
                         <div class="tooltip-info">Dates: ${cluster.oblast.dates}</div>
                     `;
