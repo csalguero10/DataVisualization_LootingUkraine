@@ -1908,3 +1908,4 @@ footer img {max-width: 156px;}
 /* space between RQ3 / RQ4 sub-headings and the text below */
 #rq-landscape .projects-text-col > h6 { padding-bottom: 16px !important; }
 #rq-urban .projects-text-col > h6 { padding-bottom: 5px !important; }
+#rq-urban .projects-text-col > h5 { padding-bottom: 20px !important; }
