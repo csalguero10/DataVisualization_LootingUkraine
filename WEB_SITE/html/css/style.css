@@ -1849,3 +1849,59 @@ footer img {max-width: 156px;}
 #rq-urban .row.margin-twenty.no-margin-lr.no-margin-bottom {
     margin-bottom: 20px !important;
 }
+
+/* =====================================================================
+   RESEARCH QUESTIONS – clickable bands (hover = white band)
+   ===================================================================== */
+#questions ul.projects-tabs li a {
+    display: block; padding: 16px 20px !important; margin: 4px 0;
+    border-radius: 6px !important; cursor: pointer;
+    transition: background-color .25s ease, color .25s ease;
+}
+#questions ul.projects-tabs li a .rq-num { font-size: 12px; letter-spacing: 1px; opacity: .75; margin-right: 6px; }
+#questions ul.projects-tabs li a:hover,
+#questions ul.projects-tabs li a:focus { background: #fff !important; color: #e31d3b !important; outline: none; }
+#questions ul.projects-tabs li.active a { background: rgba(255,255,255,.14) !important; color: #000 !important; }
+#questions ul.projects-tabs li.active a:hover { background: #fff !important; color: #000 !important; }
+@media (max-width: 767px) {
+    #questions ul.projects-tabs li { padding: 0 !important; }
+    #questions ul.projects-tabs li a { display: block !important; padding: 14px 12px !important; }
+}
+
+/* section numbers: keep the big numbers fully inside their column */
+.architecture-title-number { right: 30px; }
+@media (max-width: 767px) { .architecture-title-number { right: 16px; } }
+
+/* even spacing around the charts of the research questions */
+#questions .projects-viz-row { margin-top: 30px !important; margin-bottom: 30px !important; }
+#questions .projects-viz-row iframe { margin-bottom: 0 !important; }
+
+/* link to the next research question at the end of each tab */
+#questions a.rq-next {
+    display: inline-block; margin: 30px 0 60px; padding: 12px 22px;
+    border: 1px solid #e31d3b; border-radius: 6px; color: #e31d3b;
+    font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    transition: background-color .25s ease, color .25s ease;
+}
+#questions a.rq-next:hover, #questions a.rq-next:focus { background: #e31d3b; color: #fff; text-decoration: none; }
+
+/* space between the grey chapter band and the text below it */
+#focus-inner > .container-fluid + .container,
+#datasets > .container-fluid + .container,
+#context-inner > .container-fluid + .container,
+#methodology > .container-fluid + .container,
+#conclusion > .container-fluid + .container { margin-top: 50px; }
+
+/* RQ4: tighter spacing (template margin-twenty = 10.5% and margin-nine = 5% of width were too large) */
+#rq-urban .row.margin-twenty { margin-top: 20px !important; }
+#rq-urban p.margin-nine { margin-top: 10px !important; }
+#questions #rq-urban .projects-viz-row { margin-top: 20px !important; margin-bottom: 10px !important; }
+
+/* RQ3 / RQ4 sub-headings: remove <br> spacing and template paddings around them */
+#rq-urban .projects-text-col > br,
+#rq-landscape .projects-text-col > br { display: none; }
+#rq-urban .projects-text-col:has(> h6),
+#rq-landscape .projects-text-col:has(> h6) { padding-top: 30px !important; padding-bottom: 0 !important; }
+#rq-urban .row.margin-twenty { margin-top: 0 !important; }
+#rq-urban .row.margin-twenty > .projects-text-col > p:first-child { margin-top: 0; }
